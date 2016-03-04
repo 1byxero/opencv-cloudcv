@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
+from os import path
 
 def cannyedge(image):
 	img = cv2.imread("filter.jpg",0)
@@ -41,12 +42,14 @@ def smoothing(image):
 	img = cv2.imread(image)
 	kernel = np.ones((5,5),np.float32)/25
 	dst = cv2.filter2D(img,-1,kernel)
-
 	plt.subplot(121),plt.imshow(img),plt.title('Original')
 	plt.xticks([]), plt.yticks([])
 	plt.subplot(122),plt.imshow(dst),plt.title('Averaging')
 	plt.xticks([]), plt.yticks([])
-	plt.show()
+	plt.show()		
+	imagename = str(image).split(".")[0]
+ 	cv2.imwrite(imagename+"processed.jpg",dst)	
+
 
 def foregroundextract(image):
 	img = cv2.imread(image)
