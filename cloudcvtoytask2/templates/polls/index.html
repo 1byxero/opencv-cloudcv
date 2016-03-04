@@ -154,6 +154,14 @@ body {
     <form action="." method="post" enctype="multipart/form-data">
       {% csrf_token %}
     	{{ form }}
+      <!-- <ul>
+    <li>    <input type="checkbox" name ="greyscale" value="greyscale"/>  greyscale        </li>
+    <li>    <input type="checkbox" name ="smoothen" value="smoothen"/> smoothen</li>
+    <li><input type="checkbox" name ="binarythreshold" value="binarythreshold"/> binarythreshold</li>
+    <li><input type="checkbox" id="checkbox1" name ="resize" value="resize"/> resize <input type="text" id="textbox1" /></li>
+    <li><input type="checkbox" name ="histogram" value="histogram"/> histogram</li>
+    <li><input type="checkbox" name ="edgedetection" value="edgedetection"/> edgedetection</li>
+    </ul> -->
     <input type="button" value="preview" onclick="upload_img()" />      
     <input type="submit" value="Submit" />    	
     </form>    
@@ -191,6 +199,19 @@ body {
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
+
+$(document).ready(function() {
+    //set initial state.
+    $('#textbox1').val($(this).is(':checked'));
+
+    $('#checkbox1').change(function() {
+        if($(this).is(":checked")) {
+            var returnVal = confirm("Are you sure?");
+            $(this).attr("checked", returnVal);
+        }
+        $('#textbox1').val($(this).is(':checked'));        
+    });
+});
 
 
         function upload_img() {
