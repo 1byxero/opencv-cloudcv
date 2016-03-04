@@ -25,13 +25,13 @@ def index(request):
 			resize = form.cleaned_data['resize']
 			histogram = form.cleaned_data['histogram']
 			edgedetection = form.cleaned_data['edgedetection']			
+			sobelfilter = form.cleaned_data['sobelfilter']			
+			foregroundextract = form.cleaned_data['foregroundextract']
 			stufftodo=[]
 			if(greyscale==True):
 				stufftodo.append("greyscale")
 			if(smoothen==True):
-				stufftodo.append("smoothen")
-			if(greyscale==True):
-				stufftodo.append("greyscale")
+				stufftodo.append("smoothen")			
 			if(binarythreshold==True):
 				stufftodo.append("binarythreshold")
 			if(resize==True):
@@ -40,8 +40,12 @@ def index(request):
 				stufftodo.append("histogram")
 			if(edgedetection==True):
 				stufftodo.append("edgedetection")				
-			ggwp = process(request,newdoc.docfile.name,stufftodo)			
-			return ggwp
+			if(sobelfilter==True):
+				stufftodo.append("sobelfilter")				
+			if(foregroundextract==True):
+				stufftodo.append("foregroundextract")				
+			imageurlcontainer = process(request,newdoc.docfile.name,stufftodo)		
+			return render(request,'polls/showimg.html',{"imageurlcontainer":imageurlcontainer})	
 		else:
 			return HttpResponse("Error brah")		
 	else:
@@ -55,9 +59,35 @@ def process(request,name=None,stufftodo=[]):
 		return redirect(index)
 	else:
 		filepath = path.join(settings.MEDIA_ROOT,name)		
-		if path.isfile(filepath):			
-			sobelfilter(filepath)
-			return HttpResponse("True")
+		if path.isfile(filepath):
+			print stufftodo
+			imageurlcontainer = []
+			for i in stufftodo:
+				if i=="greyscale":
+					newfilepath = grayscale(filepath)
+					imageurlcontainer.append(str(newfilepath))
+				if i=="smoothen":
+					newfilepath = smoothing(filepath)
+					imageurlcontainer.append(str(newfilepath))
+				if i=="binarythreshold":
+					newfilepath = binarythreshold(filepath)
+					imageurlcontainer.append(str(newfilepath))
+				if i=="histogram":
+					newfilepath = histogram(filepath)					
+					imageurlcontainer.append(str(newfilepath))
+				if i=="edgedetection":
+					newfilepath = cannyedge(filepath)
+					imageurlcontainer.append(str(newfilepath))
+				if i=="sobelfilter":
+					newfilepath = sobelfilter(filepath)
+					imageurlcontainer.append(str(newfilepath))
+				if i=="foregroundextract":
+					newfilepath = foregroundextract(filepath)
+					imageurlcontainer.append(str(newfilepath))
+				imageurlcontainerfinal = []
+			for i in imageurlcontainer:
+				imageurlcontainerfinal.append(str(i).split("cloudcvtoytask2/media/")[1])				
+			return imageurlcontainerfinal
 		else:
 			return HttpResponse("Some Error Error Occured")
 

@@ -11,6 +11,8 @@ class Document(models.Model):
     resize = models.BooleanField(default=False)
     histogram = models.BooleanField(default=False)
     edgedetection = models.BooleanField(default=False)	
+    sobelfilter = models.BooleanField(default=False)	
+    foregroundextract = models.BooleanField(default=False)	
     def __unicode__(self):
 		return str(self.docfile)
 

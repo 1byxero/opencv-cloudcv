@@ -148,20 +148,13 @@ body {
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-
+    <br>    <br>
+    
     <div class="container">
 
     <form action="." method="post" enctype="multipart/form-data">
       {% csrf_token %}
-    	{{ form }}
-      <!-- <ul>
-    <li>    <input type="checkbox" name ="greyscale" value="greyscale"/>  greyscale        </li>
-    <li>    <input type="checkbox" name ="smoothen" value="smoothen"/> smoothen</li>
-    <li><input type="checkbox" name ="binarythreshold" value="binarythreshold"/> binarythreshold</li>
-    <li><input type="checkbox" id="checkbox1" name ="resize" value="resize"/> resize <input type="text" id="textbox1" /></li>
-    <li><input type="checkbox" name ="histogram" value="histogram"/> histogram</li>
-    <li><input type="checkbox" name ="edgedetection" value="edgedetection"/> edgedetection</li>
-    </ul> -->
+    	{{ form }}      
     <input type="button" value="preview" onclick="upload_img()" />      
     <input type="submit" value="Submit" />    	
     </form>    
@@ -172,22 +165,6 @@ body {
 
     <br>    <br>
 
-    <div class="container">
-
-    
-
-    {% if documents %}
-        <ul>
-        {% for document in documents %}
-            <li><img src="{{ document.docfile.url }}" height="250" width="250">{{ document.docfile.name }}</li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No documents.</p>
-    {% endif %}
-
-
-    </div>
 
 
     <!-- Bootstrap core JavaScript

@@ -150,7 +150,17 @@ body {
     </nav>
 
     <div class="container">
-       <img src="{{showimg}}" id="img_id" height="250" width="250"> 
+    {% if imageurlcontainer %}
+        <ul>
+        {% for document in imageurlcontainer %}        
+            <li><img src="/media/{{document}}"><br>{{document}}</li>
+            <br>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Some error occured.</p>
+    {% endif %}
+       
 
     </div> <!-- /container -->
 
