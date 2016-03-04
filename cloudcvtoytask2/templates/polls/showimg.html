@@ -150,36 +150,16 @@ body {
     </nav>
 
     <div class="container">
-
-    <form action="." method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-    	{{ form }}
-    <input type="button" value="preview" onclick="upload_img()" />      
-    <input type="submit" value="Submit" />    	
-    </form>    
-      <br>
-     <img src="" id="img_id" height="250" width="250" style="display:none"> 
+       <img src="{{showimg}}" id="img_id" height="250" width="250"> 
 
     </div> <!-- /container -->
 
-    <br>    <br>
-
-    <div class="container">
 
     
 
-    {% if documents %}
-        <ul>
-        {% for document in documents %}
-            <li><img src="{{ document.docfile.url }}" height="250" width="250">{{ document.docfile.name }}</li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No documents.</p>
-    {% endif %}
+    
 
-
-    </div>
+    
 
 
     <!-- Bootstrap core JavaScript
@@ -189,29 +169,6 @@ body {
 
     <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
-<script type="text/javascript">
-
-
-        function upload_img() {
-          document.getElementById("img_id").style.display = "block"
-          
-          input = document.getElementById("id_docfile")
-
-
-          console.log(input)
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('#img_id').attr('src', e.target.result);
-                }
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-    </script>
     
   </body>
 </html>
